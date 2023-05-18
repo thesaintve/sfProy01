@@ -1,0 +1,36 @@
+name: Salesforce Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Salesforce CLI
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Salesforce CLI
+        run: npm install -g sfdx-cli
+
+      - name: Authenticate with Salesforce
+        env:
+          SF_USERNAME: 'test-tz15qupmcbcf@example.com'
+          SF_PASSWORD: 'zhb*2Uuoohxhr'
+        run: |
+          echo $SF_PASSWORD | sfdx force:auth:password:generate -u $SF_USERNAME --json --setdefaultdevhubusername --noprompt
+          sfdx force:config:set defaultusername=$SF_USERNAME --global
+
+      - name: Deploy to Scratch Org or Sandbox
+        env:
+          SF_USERNAME: 'test-tz15qupmcbcf@example.com'
+        run: |
+          sfdx force:source:deploy -p force-app -u $SF_USERNAME --json
