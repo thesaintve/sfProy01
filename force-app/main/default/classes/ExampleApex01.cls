@@ -3,5 +3,6 @@ public with sharing class ExampleApex01 {
         string tempvar = 'Agrega su nombre';
 		System.debug('Hola Mundo!');
 		System.debug('Mi nombre es ' + tempvar);
+		System.debug('Hola Mundo 01!');
     }
 }
