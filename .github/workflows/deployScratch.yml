@@ -21,6 +21,15 @@ jobs:
       - name: Install Salesforce CLI
         run: npm install -g sfdx-cli
 
+      - name: Get Show key
+        env:
+          DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_CERTIFICATE_KEY }}
+        run: |
+          echo 'Inicio' 
+          echo $DEPLOYMENT_KEY 
+          echo 'Fin' 
+        shell: bash
+
       - name: Get Salesforce key
         env:
           DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_CERTIFICATE_KEY }}
