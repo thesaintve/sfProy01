@@ -32,8 +32,8 @@ jobs:
           DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_CERTIFICATE_KEY }}
         run: |
           touch temporary_dev.key
-          echo $DEPLOYMENT_KEY > temporary_dev.key
-          # echo $DEPLOYMENT_KEY | base64 -d > temporary_dev.key
+          echo $DEPLOYMENT_KEY | base64 -d > temporary_dev.key
+          # echo $DEPLOYMENT_KEY > temporary_dev.key
           ls -l
         shell: bash
 
@@ -47,8 +47,8 @@ jobs:
         run: |
           echo 'Tail'
           tail temporary_dev.key
-          sfdx force:auth:jwt:grant -u $SF_USERNAME -f server.key -i $SF_CLIENTID -r https://login.salesforce.com  --setdefaultdevhubusername
-          # sfdx force:auth:jwt:grant -u $SF_USERNAME -f temporary_dev.key -i $SF_CLIENTID -r https://login.salesforce.com  --setdefaultdevhubusername
+          sfdx force:auth:jwt:grant -u $SF_USERNAME -f temporary_dev.key -i $SF_CLIENTID -r https://login.salesforce.com  --setdefaultdevhubusername
+          # sfdx force:auth:jwt:grant -u $SF_USERNAME -f server.key -i $SF_CLIENTID -r https://login.salesforce.com  --setdefaultdevhubusername
 
       - name: Deploy to Scratch Org or Sandbox
         env:
